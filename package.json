@@ -1,0 +1,12 @@
+{
+  "name": "app",
+  "private": true,
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.2",
+    "esbuild": "^0.20.1"
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}
