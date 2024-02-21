@@ -1,4 +1,11 @@
-import React from "react";
-import Routes from "../routes";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Editor from './Editor';
 
-export default props => <>{Routes}</>;
+const App = () => (
+  <Routes>
+    <Route path="tasks/*" element={<Editor />} />
+  </Routes>
+);
+
+export default App;
