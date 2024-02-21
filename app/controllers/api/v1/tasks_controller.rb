@@ -7,7 +7,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def show
-    render json: @tasks
+    render json: @task
   end
 
   def new
@@ -45,6 +45,6 @@ class Api::V1::TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :description, :status, :due_date)
+      params.require(:task).permit(:title, :status, :description, :due_date)
     end
 end

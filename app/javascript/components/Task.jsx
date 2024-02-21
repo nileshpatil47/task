@@ -1,31 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import TaskNotFound from './TaskNotFound';
 
-const Task = ({ tasks }) => {
+const Task = ({ tasks, onDelete }) => {
   const { id } = useParams();
-  const event = tasks.find((e) => e.id === Number(id));
+  const task = tasks.find((e) => e.id === Number(id));
+  console.log(task)
+  if (!task) return <EventNotFound />;
 
   return (
-    <>
+    <div className="eventContainer">
       <h2>
-        {event.title}
+        {task.title}
+        {' - '}
+        {task.status}
+        <Link to={`/tasks/${task.id}/edit`}>Edit</Link>
+        <button
+          className="delete"
+          type="button"
+          onClick={() => onDelete(task.id)}
+        >
+          Delete
+        </button>
       </h2>
       <ul>
         <li>
-          <strong>Date:</strong> {event.due_date}
+          <strong>Status:</strong> {task.status}
         </li>
         <li>
-          <strong>Title:</strong> {event.title}
+          <strong>Due Date:</strong> {task.due_date}
         </li>
         <li>
-          <strong>Speaker:</strong> {event.description}
+          <strong>Title:</strong> {task.title}
         </li>
         <li>
-          <strong>Published:</strong> {event.status == 'Done' ? 'yes' : 'no'}
+          <strong>Description:</strong> {task.description}
         </li>
       </ul>
-    </>
+    </div>
   );
 };
 
@@ -33,11 +46,12 @@ Task.propTypes = {
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
+      due_date: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
     })
   ).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default Task;
